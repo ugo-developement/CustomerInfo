@@ -1,6 +1,7 @@
 import CustomerInfo;
 import defusedxml;
 import ExSheetFunctions;
+import LinkedListFunctions;
 import NodeDef;
 import numpy;
 import sys;
@@ -9,6 +10,7 @@ import xlwt;
 
 from CustomerInfo import *
 from ExSheetFunctions import *
+from LinkedListFunctions import *
 
 from defusedxml.common import EntitiesForbidden
 from xlrd import open_workbook
@@ -24,7 +26,14 @@ defusedxml.defuse_stdlib()
 
 
 def main():
-    
+    customer1 = Customer_Info('joey', 'joey@xxx.com')
+    customer2 = Customer_Info('kewl', 'kewl@xxx.com')
+
+    user_LL = SLinkedList()
+    user_LL.head = Node(customer1)
+    print(user_LL.head.data.name)
+    user_LL.alphaInsert(Node(customer2))
+    print(user_LL.head.next.data.name)
 
     #file = secure_open_workbook(sys.argv[1])
     #new_wb = Workbook()

@@ -1,7 +1,7 @@
 # Define Node object for linked lists
 
 class Node:
-    def __init__(self, data = None):
+    def __init__(self, data):
         self.data = data
         self.next = None
     
@@ -21,7 +21,7 @@ class SLinkedList:
         
         else:
             current = self.head
-            while current is not None and current.next.data.name < new_node.data.name:
+            while current is not None and current.next is not None and current.next.data.name < new_node.data.name:
                 current = current.next
             new_node.next = current.next
             current.next = new_node

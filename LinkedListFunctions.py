@@ -1,4 +1,5 @@
 import CustomerInfo;
+import NodeDef;
 import numpy;
 import xlrd;
 import xlwt;
