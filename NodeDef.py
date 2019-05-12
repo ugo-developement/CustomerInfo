@@ -10,7 +10,19 @@ class Node:
         while node != None:
             node = node.next
 
-# Print out Linked List
+class SLinkedList:
+    def __init__(self):
+        self.head = None
 
-def listprint(list):
-    printval = list.headval
+    def alphaInsert(self, new_node):
+        if self.head is None:
+            new_node.next = self.head
+            self.head = new_node
+        
+        else:
+            current = self.head
+            while current is not None and current.next.data.name < new_node.data.name:
+                current = current.next
+            new_node.next = current.next
+            current.next = new_node
+

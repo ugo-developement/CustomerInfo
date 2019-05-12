@@ -22,8 +22,8 @@ class Customer_Info:
         # List of any orders made from this account
         self.orders = None
         
-        # Any suspected duplicate accounts
-        self.accounts = []
+        # Total accounts user might have initialized at 1 for current account
+        self.accounts = 1
 
         # General user stats and information
         self.info = None
@@ -32,7 +32,7 @@ class Customer_Info:
         self.orders = orders_head
 
     def add_account(self, new_account):
-        self.accounts.append(new_account)
+        self.accounts = self.accounts + 1
 
     def set_info(self, new_info):
         self.info = new_info
@@ -48,25 +48,18 @@ class New_Order:
 class New_Account:
     def __init__(self, email, status):
         self.email = email
-
-        #Is the alleged duplicate "Active" or "Inactive"
         self.status = status
 
-class New_Info:
-    def __init__(self, bCount, pCount, bSum, pSum, largestBasket, smallestBasket,
-    largestPrice, smallestPrice):
-        #self.ip = ip
-        self.bCount = bCount
-        self.pCount = pCount
-        self.bSum = bSum;
-        self.pSum = pSum
-        self.avgBasket = None
-        self.largestBasket = largestBasket
-        self.smallestBasket = smallestBasket
-        self.avgPrice = None
-        self.largestPrice = largestPrice
-        self.smallestPrice = smallestPrice
+    def set_status(self, new_status):
+        self.status = new_status
 
+class New_Info:
+    def __init__(self, dog):
+        self.dog = dog
+
+
+
+# Info for Ugo as a whole
 
 class Ugo_Info:
     def __init__(self, bCount, bSum, bLarge, bSmall):
