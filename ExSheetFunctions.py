@@ -1,10 +1,14 @@
 import CustomerInfo;
 import defusedxml;
+import LinkedListFunctions;
+import NodeDef;
 import numpy;
 import xlrd;
 import xlwt;
 
 from CustomerInfo import *
+from LinkedListFunctions import *
+from NodeDef import *
 
 from defusedxml.common import EntitiesForbidden;
 from xlrd import open_workbook;
@@ -58,6 +62,43 @@ def get_ugo_info(file):
 
     return data
 
+def get_new_user(file, row):
+    user = Customer_Info(file.cell_value(row, 0).lower(), file.cell_value(row, 1).lower())
+    return user
+
+def update_user_info(file, row, user, userN, userE, userll, type):
+    # Python u wild lol
+    if type is 'update':
+        order = New_Order(file.cell_value(row, 5), file.cell_value(row, 4))
+        head = userll.head
+        if head is not None:
+            if head.data.name.lower() == userN and head.data.email.lower() == userE:
+                head.data.orders.pushInsert(Node(order))
+
+            else:
+                while head is not None:
+                    if head.data.name.lower() == userN and head.data.email.lower() == userE:
+                        print('User found. Updating')
+                        break
+                    head = head.next
+                head.data.orders.pushInsert(Node(order))
+                head.data.update('Active', head.data.orders.head, order.basket, order.price)
+
+    else:
+        order_ll = SLinkedList()
+        order = New_Order(file.cell_value(row, 5), file.cell_value(row, 4))
+        order_ll.pushInsert(Node(order))
+        user.set_order(order_ll)
+
+        info = New_Info()
+        info.status = 'Active'
+        info.ordersTotal = 1
+        info.lastOrder = user.orders.head
+        info.baskSum = info.baskSum + order.basket
+        info.priceSum = info.priceSum + order.price
+        info.avgBasket = float(info.baskSum) / float(info.ordersTotal)
+        info.avgPrice = float(info.priceSum) / float(info.ordersTotal)
+
 
 
 ##########################################
@@ -90,8 +131,8 @@ def write_ugo_info(file, data, index):
     file.write(3 + indexF, 5, data.bLarge)
     file.write(4 + indexF, 5, data.bSmall)
 
-    file.write(1 + indexF, 8, 'n/a')
-    file.write(2 + indexF, 8, 'n/a')
-    file.write(3 + indexF, 8, 'n/a')
-    file.write(4 + indexF, 8, 'n/a')
-    file.write(5 + indexF, 8, 'n/a')
+    file.write(1 + indexF, 8, 'x')
+    file.write(2 + indexF, 8, 'x')
+    file.write(3 + indexF, 8, 'x')
+    file.write(4 + indexF, 8, 'x')
+    file.write(5 + indexF, 8, 'x')

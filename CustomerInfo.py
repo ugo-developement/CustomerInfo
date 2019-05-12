@@ -23,40 +23,71 @@ class Customer_Info:
         self.orders = None
         
         # Total accounts user might have initialized at 1 for current account
-        self.accounts = 1
+        #self.accounts = 1
 
         # General user stats and information
         self.info = None
 
-    def set_order_head(self, orders_head):
-        self.orders = orders_head
+    def set_name(self, name):
+        self.name = name
 
-    def add_account(self, new_account):
-        self.accounts = self.accounts + 1
+    def set_email(self, email):
+        self.email = email
+
+    def set_order(self, orders_head):
+        self.orders = orders_head
 
     def set_info(self, new_info):
         self.info = new_info
+
+    def set_role(self, new_role):
+        self.info.role = new_role
+
+    def update(self, status, lo, bs, ps):
+        if self.info is None:
+            self.info = New_Info()
+        else:
+            self.info.status = status
+            self.info.ordersTotal = self.info.ordersTotal + 1
+            self.info.lastOrder = lo
+            self.info.baskSum = self.info.baskSum + bs
+            self.info.priceSum = self.info.priceSum + ps
+            self.info.avgBasket = float(self.info.baskSum) / float(self.info.ordersTotal)
+            self.info.avgPrice = float(self.info.priceSum) / float(self.info.ordersTotal)
 
 
 # Objects for Customer_Info
 
 class New_Order:
     def __init__(self, price, basket):
-        self.price = price
+        if price is '#######':
+            self.price = 0
+        else:
+            self.price = price
         self.basket = basket
-
-class New_Account:
-    def __init__(self, email, status):
-        self.email = email
-        self.status = status
 
     def set_status(self, new_status):
         self.status = new_status
 
 class New_Info:
-    def __init__(self, dog):
-        self.dog = dog
+    def __init__(self):
+        self.status = None
+        self.role = 'New'
+        self.ordersTotal = 0
+        self.lastOrder = None
+        self.baskSum = 0
+        self.avgBasket = 0
+        self.priceSum = 0
+        self.avgPrice = 0
 
+    def update(self, status, lo, bs, ps):
+        self.status = status
+        self.ordersTotal = self.ordersTotal + 1
+        self.lastOrder = lo
+        self.baskSum = self.baskSum + bs
+        self.priceSum = self.priceSum + ps
+        self.avgBasket = float(self.baskSum) / float(ordersTotal)
+        self.avgPrice = float(self.priceSum) / float(ordersTotal)
 
 
 # Info for Ugo as a whole
