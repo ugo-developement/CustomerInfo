@@ -59,16 +59,34 @@ def main():
             curr_year.append([new_user.name.lower(), new_user.email.lower()])
             y = y + 1
 
-        # Ugo Portion
-        data = get_ugo_info(sheet)
-        prep_results(results, sheet.name, x)
-        write_ugo_info(results, data, x)
 
         det_users_role(user_LL, prev_year)
+        role_count = count_roles(user_LL) # list [new, repeat, loyal, lost, dup]
+        data = get_ugo_info(sheet)
+        prep_results(results, sheet.name, x)
+        write_ugo_info(results, data, x, role_count)
+
         prev_year = curr_year
         curr_year = []
         print('ON TO NEXT SHEET')
         x = x + 1
+
+    user_results = new_wb.add_sheet('User Results')
+    us_head = user_LL.head
+    user_results.write(0, 0, 'Customer Name')
+    user_results.write(0, 2, 'Customer Email')
+    user_results.write(0, 4, 'Avg Basket Size')
+    user_results.write(0, 5, 'Avg Price')
+    user_results.write(0, 6, 'Account Status')
+    dex_row = 1
+    while dex_row <= get_LL_len(user_LL):
+        user_results.write(dex_row, 0, us_head.data.name)
+        user_results.write(dex_row, 2, us_head.data.email)
+        user_results.write(dex_row, 4, round(us_head.data.info.avgBasket, 2))
+        user_results.write(dex_row, 5, round(us_head.data.info.avgPrice, 2))
+        user_results.write(dex_row, 6, us_head.data.info.role)
+        us_head = us_head.next
+        dex_row = dex_row + 1
 
     new_wb.save('results.xls')
 

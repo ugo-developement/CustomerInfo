@@ -92,12 +92,14 @@ def update_user_info(file, row, user, userN, userE, userll, type):
 
         info = New_Info()
         info.status = 'Active'
+        info.role = 'new'
         info.ordersTotal = 1
         info.lastOrder = user.orders.head
         info.baskSum = info.baskSum + order.basket
         info.priceSum = info.priceSum + order.price
         info.avgBasket = float(info.baskSum) / float(info.ordersTotal)
         info.avgPrice = float(info.priceSum) / float(info.ordersTotal)
+        user.set_info(info)
 
 
 
@@ -117,22 +119,22 @@ def prep_results(file, sheet, index):
     file.write(3 + indexF, 3, 'Largest Basket') 
     file.write(4 + indexF, 3, 'Smallest Basket')
 
-    file.write(0 + indexF, 7, 'Customer Data')
+    file.write(0 + indexF, 7, 'Customer Data (Skewed due to duplicates, working on fix)')
     file.write(1 + indexF, 7, 'New')
     file.write(2 + indexF, 7, 'Repeat')
     file.write(3 + indexF, 7, 'Loyal')
     file.write(4 + indexF, 7, 'Lost')
     file.write(5 + indexF, 7, 'Duplicate')
 
-def write_ugo_info(file, data, index):
+def write_ugo_info(file, data, index, roles):
     indexF = index * 10
     file.write(1 + indexF, 5, data.bCount)
     file.write(2 + indexF, 5, round(data.bAvg, 2))
     file.write(3 + indexF, 5, data.bLarge)
     file.write(4 + indexF, 5, data.bSmall)
 
-    file.write(1 + indexF, 8, 'x')
-    file.write(2 + indexF, 8, 'x')
-    file.write(3 + indexF, 8, 'x')
-    file.write(4 + indexF, 8, 'x')
-    file.write(5 + indexF, 8, 'x')
+    file.write(1 + indexF, 8, roles[0])
+    file.write(2 + indexF, 8, roles[1])
+    file.write(3 + indexF, 8, roles[2])
+    file.write(4 + indexF, 8, roles[3])
+    file.write(5 + indexF, 8, roles[4])

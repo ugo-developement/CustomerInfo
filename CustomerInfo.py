@@ -48,6 +48,7 @@ class Customer_Info:
             self.info = New_Info()
         else:
             self.info.status = status
+            self.info.role = self.info.role
             self.info.ordersTotal = self.info.ordersTotal + 1
             self.info.lastOrder = lo
             self.info.baskSum = self.info.baskSum + bs
@@ -72,7 +73,7 @@ class New_Order:
 class New_Info:
     def __init__(self):
         self.status = None
-        self.role = 'New'
+        self.role = 'new'
         self.ordersTotal = 0
         self.lastOrder = None
         self.baskSum = 0
