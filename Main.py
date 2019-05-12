@@ -1,14 +1,18 @@
+import CustomerInfo;
 import defusedxml;
 import ExSheetFunctions;
+import NodeDef;
 import numpy;
 import sys;
 import xlrd;
 import xlwt;
 
-from defusedxml.common import EntitiesForbidden;
-from xlrd import open_workbook;
+from CustomerInfo import *;
 
-defusedxml.defuse_stdlib();
+from defusedxml.common import EntitiesForbidden
+from xlrd import open_workbook
+
+defusedxml.defuse_stdlib()
 
 
 # Joey Hendrich
@@ -17,22 +21,10 @@ defusedxml.defuse_stdlib();
 
 
 
-##################################
-#                                #
-###### Begin Code for Main #######
-#                                #
-##################################
-
 def main():
-    argv = sys.argv;
-    
-    for x in range (1, len(argv)):
-        print("Hello World!");
-
-
-
-
-
+    x = Customer_Info('Joey', 'x@x.com')
+    x.add_account(New_Account('x@xx.com', 'Active'))
+    print(x.accounts[0].email)
 
 #Run Main 
 

@@ -1,6 +1,12 @@
 import sys;
 
 
+# Could maybe try:
+# class Customer_Info:
+#   pass
+# and create objects like so:
+# 
+
 # Customer_Info Class Definition
 # Stores Customer Specific Info
 
@@ -12,15 +18,21 @@ class Customer_Info:
     def __init__(self, name, email):
         self.name = name
         self.email = email
+
+        # List of any orders made from this account
         self.orders = None
-        self.accounts = None
+        
+        # Any suspected duplicate accounts
+        self.accounts = []
+
+        # General user stats and information
         self.info = None
 
-    def add_order_LinkedList(self, order_head):
-        self.orders = order_head
+    def set_order_head(self, orders_head):
+        self.orders = orders_head
 
-    def add_account_LinkedList(self, account_head):
-        self.account = account_head
+    def add_account(self, new_account):
+        self.accounts.append(new_account)
 
     def set_info(self, new_info):
         self.info = new_info
@@ -36,18 +48,31 @@ class New_Order:
 class New_Account:
     def __init__(self, email, status):
         self.email = email
-        self.status = status #Is the alleged duplicate "Active" or "Inactive"
+
+        #Is the alleged duplicate "Active" or "Inactive"
+        self.status = status
 
 class New_Info:
-    def __init__(self, ip, bCount, pCount, avgBasket, largestBasket, smallestBasket,
-    avgPrice, largestPrice, smallestPrice):
+    def __init__(self, ip, bCount, pCount, bSum, pSum, largestBasket, smallestBasket,
+    largestPrice, smallestPrice):
         self.ip = ip
         self.bCount = bCount
         self.pCount = pCount
-        self.avgBasket = avgBasket
+        self.bSum = bSum;
+        self.pSum = pSum
+        self.avgBasket = None
         self.largestBasket = largestBasket
         self.smallestBasket = smallestBasket
-        self.avgPrice = avgPrice
+        self.avgPrice = None
         self.largestPrice = largestPrice
         self.smallestPrice = smallestPrice
+
+    def add_to_bCount(self):
+        self.bCount = self.bCount + 1
+
+    def add_to_pCount(self):
+        self.pCount = self.pCount + 1
+
+    def update_avgBasket(self):
+        self.avgBasket = bSum / bCount
 
