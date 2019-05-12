@@ -53,9 +53,9 @@ class New_Account:
         self.status = status
 
 class New_Info:
-    def __init__(self, ip, bCount, pCount, bSum, pSum, largestBasket, smallestBasket,
+    def __init__(self, bCount, pCount, bSum, pSum, largestBasket, smallestBasket,
     largestPrice, smallestPrice):
-        self.ip = ip
+        #self.ip = ip
         self.bCount = bCount
         self.pCount = pCount
         self.bSum = bSum;
@@ -67,12 +67,26 @@ class New_Info:
         self.largestPrice = largestPrice
         self.smallestPrice = smallestPrice
 
-    def add_to_bCount(self):
+
+class Ugo_Info:
+    def __init__(self, bCount, bSum, bLarge, bSmall):
+        self.bCount = bCount
+        self.bSum = bSum
+        self.bLarge = bLarge
+        self.bSmall = bSmall
+        self.oCount = 0
+        self.bAvg = 0
+
+    def set_bLarge(self, size):
+        self.bLarge = int(size)
+
+    def set_bSmall(self, size):
+        self.bSmall = int(size)
+
+    def add_to_bSum(self, size):
+        self.bSum = self.bSum + int(size)
         self.bCount = self.bCount + 1
+        self.bAvg = float(self.bSum) / float(self.bCount)
 
-    def add_to_pCount(self):
-        self.pCount = self.pCount + 1
 
-    def update_avgBasket(self):
-        self.avgBasket = bSum / bCount
 
