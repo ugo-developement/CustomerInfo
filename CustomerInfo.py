@@ -1,18 +1,12 @@
 import sys;
 
 
-# Could maybe try:
-# class Customer_Info:
-#   pass
-# and create objects like so:
-# 
+# For Customer_Info related functions 
+# Go to line 119
 
 # Customer_Info Class Definition
 # Stores Customer Specific Info
 
-# Orders:
-# Points to head of linked list consisting of all known orders
-# 
 
 # TO DO:
 # - Need to store duplicate accounts inside customer objects
@@ -33,9 +27,9 @@ import sys;
 # - info.created = 'mm/dd/yyyy'
 # - info.ordTotal 
 # - info.baskSum 
-# - info.avgBask
+# - info.baskAvg
 # - info.priceSum
-# - info.avgPrice
+# - info.priceAvg
 class Customer_Info:
     def __init__(self, name, email):
         self.name = name
@@ -49,12 +43,6 @@ class Customer_Info:
 
         # General user stats and information
         self.info = None
-
-    def set_name(self, name):
-        self.name = name
-
-    def set_email(self, email):
-        self.email = email
 
     def add_order(self, order):
         self.orders.append(order)
@@ -76,8 +64,8 @@ class Customer_Info:
         self.info.ordTotal = self.info.ordTotal + ot
         self.info.baskSum = self.info.baskSum + bs
         self.info.priceSum = self.info.priceSum + ps
-        self.info.avgBasket = float(self.info.baskSum) / float(self.info.ordTotal)
-        self.info.avgPrice = float(self.info.priceSum) / float(self.info.ordTotal)
+        self.info.baskAvg = float(self.info.baskSum) / float(self.info.ordTotal)
+        self.info.priceAvg = float(self.info.priceSum) / float(self.info.ordTotal)
 
 
 # Info Class for Customer_Info
@@ -94,9 +82,23 @@ class New_Info:
         self.created = created
         self.ordTotal = 0
         self.baskSum = 0
-        self.avgBasket = 0 # average of x years
+        self.baskAvg = 0 # average of x years
         self.priceSum = 0
-        self.avgPrice = 0 # average of x years
+        self.priceAvg = 0 # average of x years
+
+
+###########################################
+#                                         #
+######### Customer_Info Functions #########
+#                                         #
+###########################################
+
+
+
+
+
+
+
 
 
 # Info for Ugo as a whole
@@ -120,6 +122,5 @@ class Ugo_Info:
         self.bSum = self.bSum + int(size)
         self.bCount = self.bCount + 1
         self.bAvg = float(self.bSum) / float(self.bCount)
-
 
 
