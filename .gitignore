@@ -116,4 +116,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 CustomerExcels/Detailed Customer History.xlsx
+CustomerExcels/~$Detailed Customer History.xlsx
 CustomerExcels/OutputExample.xlsx
