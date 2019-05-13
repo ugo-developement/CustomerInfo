@@ -69,11 +69,15 @@ def get_new_user(file, row):
 def update_user_info(file, row, user, userN, userE, userll, type):
     # Python u wild lol
     if type is 'update':
-        order = New_Order(file.cell_value(row, 5), file.cell_value(row, 4))
+        
+
+        #order = New_Order(file.cell_value(row, 5), file.cell_value(row, 4))
+
         head = userll.head
         if head is not None:
             if head.data.name.lower() == userN and head.data.email.lower() == userE:
-                head.data.orders.pushInsert(Node(order))
+                dog = head
+                #head.data.orders.pushInsert(Node(order))
 
             else:
                 while head is not None:
@@ -81,22 +85,22 @@ def update_user_info(file, row, user, userN, userE, userll, type):
                         print('User found. Updating')
                         break
                     head = head.next
-                head.data.orders.pushInsert(Node(order))
-                head.data.update('Active', head.data.orders.head, order.basket, order.price)
+                #head.data.orders.pushInsert(Node(order))
+                #head.data.update('Active', head.data.orders.head, order.basket, order.price)
 
     else:
-        order_ll = SLinkedList()
-        order = New_Order(file.cell_value(row, 5), file.cell_value(row, 4))
-        order_ll.pushInsert(Node(order))
-        user.set_order(order_ll)
+        #order_ll = SLinkedList()
+        #order = New_Order(file.cell_value(row, 5), file.cell_value(row, 4))
+        #order_ll.pushInsert(Node(order))
+        #user.set_order(order_ll)
 
         info = New_Info()
         info.status = 'Active'
         info.role = 'new'
         info.ordersTotal = 1
-        info.lastOrder = user.orders.head
-        info.baskSum = info.baskSum + order.basket
-        info.priceSum = info.priceSum + order.price
+        #info.lastOrder = user.orders.head
+        #info.baskSum = info.baskSum + order.basket
+        #info.priceSum = info.priceSum + order.price
         info.avgBasket = float(info.baskSum) / float(info.ordersTotal)
         info.avgPrice = float(info.priceSum) / float(info.ordersTotal)
         user.set_info(info)

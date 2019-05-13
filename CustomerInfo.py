@@ -14,16 +14,38 @@ import sys;
 # Points to head of linked list consisting of all known orders
 # 
 
+# TO DO:
+# - Need to store duplicate accounts inside customer objects
+# - Need to update the user email, orders (should contain total of active and dups), 
+#   and info whenever a duplicate becomes active and main goes inactive
+
+
+# Rework so Customer Profile works like so:
+# Customer
+# name
+# email
+# orders[[year, amount of orders], [year, amount of orders]]
+# accounts = [obj.dup_account1, obj.dup_account2]
+# info 
+# - info.status = 'active' 'duplicate' 'inactive'
+# - info.role = 'new' or 'repeat' or 'loyal' or 'lost'
+# - info.yrs 
+# - info.created = 'mm/dd/yyyy'
+# - info.ordTotal 
+# - info.baskSum 
+# - info.avgBask
+# - info.priceSum
+# - info.avgPrice
 class Customer_Info:
     def __init__(self, name, email):
         self.name = name
         self.email = email
 
-        # List of any orders made from this account
-        self.orders = None
+        # List of objects containing year and total orders
+        self.orders = []
         
-        # Total accounts user might have initialized at 1 for current account
-        #self.accounts = 1
+        # List pointing to customer objects of duplicates
+        self.accounts = []
 
         # General user stats and information
         self.info = None
@@ -34,8 +56,8 @@ class Customer_Info:
     def set_email(self, email):
         self.email = email
 
-    def set_order(self, orders_head):
-        self.orders = orders_head
+    def add_order(self, order):
+        self.orders.append(order)
 
     def set_info(self, new_info):
         self.info = new_info
@@ -43,52 +65,38 @@ class Customer_Info:
     def set_role(self, new_role):
         self.info.role = new_role
 
-    def update(self, status, lo, bs, ps):
-        if self.info is None:
-            self.info = New_Info()
-        else:
-            self.info.status = status
-            self.info.role = self.info.role
-            self.info.ordersTotal = self.info.ordersTotal + 1
-            self.info.lastOrder = lo
-            self.info.baskSum = self.info.baskSum + bs
-            self.info.priceSum = self.info.priceSum + ps
-            self.info.avgBasket = float(self.info.baskSum) / float(self.info.ordersTotal)
-            self.info.avgPrice = float(self.info.priceSum) / float(self.info.ordersTotal)
+    def set_status(self, status):
+        self.info.status = status
+
+    # This will ALWAYS increase the user's years with ugo by 1. 
+    # Change this mechanic later
+    def update(self, status, ot, bs, ps):
+        self.info.status = status
+        self.info.yrs = self.info.yrs + 1
+        self.info.ordTotal = self.info.ordTotal + ot
+        self.info.baskSum = self.info.baskSum + bs
+        self.info.priceSum = self.info.priceSum + ps
+        self.info.avgBasket = float(self.info.baskSum) / float(self.info.ordTotal)
+        self.info.avgPrice = float(self.info.priceSum) / float(self.info.ordTotal)
 
 
-# Objects for Customer_Info
+# Info Class for Customer_Info
 
-class New_Order:
-    def __init__(self, price, basket):
-        if price is '#######':
-            self.price = 0
-        else:
-            self.price = price
-        self.basket = basket
-
-    def set_status(self, new_status):
-        self.status = new_status
-
+# On Initialization, must take in:
+# Status (Can only be Active or Duplicate when Initializing)
+# Created (Year created)
+# Everything else defaults to constant values true for all new info classes
 class New_Info:
-    def __init__(self):
-        self.status = None
-        self.role = 'new'
-        self.ordersTotal = 0
-        self.lastOrder = None
-        self.baskSum = 0
-        self.avgBasket = 0
-        self.priceSum = 0
-        self.avgPrice = 0
-
-    def update(self, status, lo, bs, ps):
+    def __init__(self, status, created):
         self.status = status
-        self.ordersTotal = self.ordersTotal + 1
-        self.lastOrder = lo
-        self.baskSum = self.baskSum + bs
-        self.priceSum = self.priceSum + ps
-        self.avgBasket = float(self.baskSum) / float(ordersTotal)
-        self.avgPrice = float(self.priceSum) / float(ordersTotal)
+        self.role = 'new'
+        self.yrs = 1 # years with ugo
+        self.created = created
+        self.ordTotal = 0
+        self.baskSum = 0
+        self.avgBasket = 0 # average of x years
+        self.priceSum = 0
+        self.avgPrice = 0 # average of x years
 
 
 # Info for Ugo as a whole
