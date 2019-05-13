@@ -18,12 +18,9 @@ from xlwt import Workbook
 
 defusedxml.defuse_stdlib()
 
-
 # Joey Hendrich
 # May 11, 2019
-# Version: 0.1.0
-
-
+# Version: 0.2.0
 
 def main():
     # file path, surrounded in r"" for 
