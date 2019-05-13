@@ -1,8 +1,6 @@
 import CustomerInfo;
 import NodeDef;
 import numpy;
-import xlrd;
-import xlwt;
 
 from CustomerInfo import *
 from NodeDef import *
