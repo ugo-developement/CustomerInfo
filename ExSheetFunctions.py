@@ -138,3 +138,19 @@ def write_ugo_info(file, data, index, roles):
     file.write(3 + indexF, 8, roles[2])
     file.write(4 + indexF, 8, roles[3])
     file.write(5 + indexF, 8, roles[4])
+
+def write_user_info(file, userll, index):
+    us_head = userll.head
+    file.write(0, 0, 'Customer Name')
+    file.write(0, 2, 'Customer Email')
+    file.write(0, 4, 'Avg Basket Size')
+    file.write(0, 5, 'Avg Price')
+    file.write(0, 6, 'Account Status')
+    while index <= get_LL_len(userll):
+        file.write(index, 0, us_head.data.name)
+        file.write(index, 2, us_head.data.email)
+        file.write(index, 4, round(us_head.data.info.avgBasket, 2))
+        file.write(index, 5, round(us_head.data.info.avgPrice, 2))
+        file.write(index, 6, us_head.data.info.role)
+        us_head = us_head.next
+        index = index + 1
