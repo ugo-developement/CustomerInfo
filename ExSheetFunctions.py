@@ -46,8 +46,12 @@ def secure_open_workbook(xfile):
 #                                        #
 ##########################################
 
-# Read data from excel sheets
-
+#
+# Function: Get data about Ugo
+# Return: Ugo_Info object
+# Usage: Collect out put data
+# about Ugo for individual years
+#
 
 def get_ugo_info(file):
     data = Ugo_Info(0, 0, 1, 1)
@@ -59,51 +63,44 @@ def get_ugo_info(file):
         if file.cell_value(indexRow, 3) < data.bSmall:
             data.set_bSmall(file.cell_value(indexRow, 3))
         indexRow = indexRow + 1
-
     return data
+
+#
+# Function: Create a new user object
+# Return: Customer_Info object
+# Usage: Create new users to be stored
+# inside of the User Linked List
+#
 
 def get_new_user(file, row):
     user = Customer_Info(file.cell_value(row, 0).lower(), file.cell_value(row, 1).lower())
     return user
 
+
+#
+# Funtion: Find user in workbook sheet
+# Return: True or False
+# Usage: Check activity of account that year
+#
+
+def get_active_bool(sheet, user): #(wb sheet, user_ll.head.data)
+    name = user.name
+    email = user.email
+
+    i = 1
+    while i < sheet.nrows:
+        if name is sheet.cell_value(i, 0) and email is sheet.cell_value(i, 1):
+            return True
+    return False
+
+
+#
+# Function: Update specific user's info
+# Usage: Update user info
+#
+
 def update_user_info(file, row, user, userN, userE, userll, type):
-    # Python u wild lol
-    if type is 'update':
-        
-
-        #order = New_Order(file.cell_value(row, 5), file.cell_value(row, 4))
-
-        head = userll.head
-        if head is not None:
-            if head.data.name.lower() == userN and head.data.email.lower() == userE:
-                dog = head
-                #head.data.orders.pushInsert(Node(order))
-
-            else:
-                while head is not None:
-                    if head.data.name.lower() == userN and head.data.email.lower() == userE:
-                        print('User found. Updating')
-                        break
-                    head = head.next
-                #head.data.orders.pushInsert(Node(order))
-                #head.data.update('Active', head.data.orders.head, order.basket, order.price)
-
-    else:
-        #order_ll = SLinkedList()
-        #order = New_Order(file.cell_value(row, 5), file.cell_value(row, 4))
-        #order_ll.pushInsert(Node(order))
-        #user.set_order(order_ll)
-
-        info = New_Info()
-        info.status = 'Active'
-        info.role = 'new'
-        info.ordersTotal = 1
-        #info.lastOrder = user.orders.head
-        #info.baskSum = info.baskSum + order.basket
-        #info.priceSum = info.priceSum + order.price
-        info.avgBasket = float(info.baskSum) / float(info.ordersTotal)
-        info.avgPrice = float(info.priceSum) / float(info.ordersTotal)
-        user.set_info(info)
+    dog = row
 
 
 
@@ -113,7 +110,12 @@ def update_user_info(file, row, user, userN, userE, userll, type):
 #                                        #
 ##########################################
 
-# Write to excel sheets
+#
+# Function: Prepare 'Results' sheet
+# Usage: Write column descriptions
+# and data desctiptions to 'Results'
+#
+
 def prep_results(file, sheet, index):
     indexF = index * 10
     file.write(0 + indexF, 0, 'RESULTS FOR ' + sheet)
@@ -153,8 +155,8 @@ def write_user_info(file, userll, index):
     while index <= get_LL_len(userll):
         file.write(index, 0, us_head.data.name)
         file.write(index, 2, us_head.data.email)
-        file.write(index, 4, round(us_head.data.info.avgBasket, 2))
-        file.write(index, 5, round(us_head.data.info.avgPrice, 2))
+        file.write(index, 4, round(us_head.data.info.baskAvget, 2))
+        file.write(index, 5, round(us_head.data.info.priceAvg, 2))
         file.write(index, 6, us_head.data.info.role)
         us_head = us_head.next
         index = index + 1

@@ -21,8 +21,8 @@ import sys;
 # orders[[year, amount of orders], [year, amount of orders]]
 # accounts = [obj.dup_account1, obj.dup_account2]
 # info 
-# - info.status = 'active' 'duplicate' 'inactive'
-# - info.role = 'new' or 'repeat' or 'loyal' or 'lost'
+# - info.status = 'Active' 'Duplicate' 'Inactive'
+# - info.role = 'New' or 'Repeat' or 'Loyal' or 'Lost'
 # - info.yrs 
 # - info.created = 'mm/dd/yyyy'
 # - info.ordTotal 
@@ -92,6 +92,46 @@ class New_Info:
 ######### Customer_Info Functions #########
 #                                         #
 ###########################################
+
+#
+# Function: Swap duplicate with active account
+# Return: Customer_Info object
+# Usage: Whenever an active account becomes
+# less active than one of their duplicates
+#
+
+def duplicate_make_active(act, dup): #(account to be made dup, dup to be made active account)
+    act_new = dup
+    act_new.set_status('Active')
+
+    for x in act.accounts:
+        x.set_status('Duplicate')
+    
+    # Theory is if active account and dups all have
+    # unique account lists containing all other 
+    # accounts then no need to shuffle around
+
+    return act_new
+
+
+#
+# Function: Create account and set up
+# accounts[] for all related accounts
+# Return: True or False
+# Usage: Check to see if user name but
+# not user email match an existing user
+# and if so, mark as duplicate and create
+#
+
+def duplicate_create_new(u_ll, name, email): #(user linked list, name, email)
+    
+
+
+
+
+
+
+
 
 
 
