@@ -3,7 +3,6 @@ import defusedxml;
 import ExSheetFunctions;
 import LinkedListFunctions;
 import NodeDef;
-import numpy;
 import sys;
 import xlrd;
 import xlwt;
@@ -35,7 +34,6 @@ def main():
     user_results.col(0).width = 256 * 30
     user_results.col(1).width = 256 * 30
 
-    role_list = ['New', 'Repeat', 'Loyal', 'Lost']
     prev_year = []
     curr_year = []
     u_names = []
@@ -87,9 +85,9 @@ def main():
                 while head is not None:
                     if head.data.name == name:
                         if head.data.email == email:
-                            head.data.update()
-
-
+                            head.data.update(1, ot, bs, ps) # Add year only when updating the parent account
+                    # Starting with elif here (?) figure out how keeping track
+                    # of years and changing parent account will work out
 
 
     new_wb.save('RandC_Results.xls')

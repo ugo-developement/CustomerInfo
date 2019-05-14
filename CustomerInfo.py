@@ -31,6 +31,7 @@ import sys;
 # - info.priceSum
 # - info.priceAvg
 class Customer_Info:
+    role_list = ['Lost', 'New', 'Repeat', 'Loyal']
     def __init__(self, name, email):
         self.name = name
         self.email = email
@@ -51,7 +52,7 @@ class Customer_Info:
         self.info = new_info
 
     def set_role(self, new_role):
-        self.info.role = new_role
+        self.info.role = role_list[new_role] # 0 through 3, see role_list above
 
     def set_status(self, status):
         self.info.status = status
