@@ -138,7 +138,67 @@ def main():
     # save workbook to current directory
     new_wb.save('results.xls')
 
+def refined_main():
+    users_LL = SLinkedList()
+    path = r"{}".format(sys.argv[1])
+    file = secure_open_workbook(path)
+
+    new_wb = Workbook()
+    ugo_results = new_wb.add_sheet('Ugo Results')
+    user_results = new_wb.add_sheet('User Results')
+
+    prev_year = []
+    curr_year = []
+    u_names = []
+    u_emails = []
+
+    for index in range(file.nsheets + 1):
+        sheet = file.sheet_by_index(index)
+
+        # Sheet containing all created accounts with dates, ip, etc
+        # This loop will populate users_LL, u_names, and u_emails
+        if index == 0:
+            i = 1
+            while i < sheet.nrows:
+                name = sheet.cell_value(i, 0).lower()
+                email = sheet.cell_value(i, 1).lower()
+                created = sheet.cell_value(i, 3)
+                head = users_LL.head
+                done = False # Simple bool to make breaking then continuing easier
+
+                if email not in u_emails:
+                    if name not in u_names:
+                        u_names.append(name)
+                        u_emails.append(email)
+
+                        new_user = Customer_Info(name, email)
+                        new_info = New_Info('Active', created)
+                        new_user.set_info(new_info)
+
+                        users_LL.alphaInsert(new_user)
+
+
+                while head is not None:
+                    if head.data.name is name and head.data.email is not email:
+                        if email not in head.data.accounts:
+                            head.data.accounts.append(email)
+                        break
+                    head = head.next
+
+                
+
+            
+            # End while
+                
+                
+
+
+
+
+
+
+
 
 # Run Main 
-if __name__ == "__main__":
-    main()
+if __name__ == "__refined_main__":
+    refined_main()

@@ -19,7 +19,7 @@ import sys;
 # name
 # email
 # orders[[year, amount of orders], [year, amount of orders]]
-# accounts = [obj.dup_account1, obj.dup_account2]
+# accounts = [dup_account_email]
 # info 
 # - info.status = 'Active' 'Duplicate' 'Inactive'
 # - info.role = 'New' or 'Repeat' or 'Loyal' or 'Lost'
@@ -57,7 +57,7 @@ class Customer_Info:
         self.info.status = status
 
     # This will ALWAYS increase the user's years with ugo by 1. 
-    # Change this mechanic later
+    # Change this mechanic later ... Maybe
     def update(self, status, ot, bs, ps):
         self.info.status = status
         self.info.yrs = self.info.yrs + 1
@@ -77,8 +77,8 @@ class Customer_Info:
 class New_Info:
     def __init__(self, status, created):
         self.status = status
-        self.role = 'new'
-        self.yrs = 1 # years with ugo
+        self.role = 'New'
+        self.yrs = 0 # years with ugo
         self.created = created
         self.ordTotal = 0
         self.baskSum = 0
@@ -115,19 +115,30 @@ def duplicate_make_active(act, dup): #(account to be made dup, dup to be made ac
 
 
 #
-# Function: Create account and set up
-# accounts[] for all related accounts
-# Return: True or False
+# Function: Check if duplicate is
+# already in parents accounts list
+# Return: True if it exists, False 
+# if it needs to be added
+# is already accounted for
 # Usage: Check to see if user name but
 # not user email match an existing user
 # and if so, mark as duplicate and create
 #
 
-def duplicate_create_new(u_ll, name, email): #(user linked list, name, email)
+def duplicate_check_exists(u_ll, name, email): #(user linked list, name, email)
+    head = u_ll.head
+    active_acnt = None
+
+    while head is not None:
+        if head.data.name is name.lower() and head.data.email is not email.lower():
+            if email in head.data.accounts:
+                return True
+            return False
+        head = head.next
+    return 'Failed to find parent'
+
+
     
-
-
-
 
 
 
