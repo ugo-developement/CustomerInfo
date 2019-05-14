@@ -1,4 +1,6 @@
 # Define Node object for linked lists
+import CustomerInfo
+from CustomerInfo import *
 
 class Node:
     def __init__(self, data):
@@ -26,6 +28,5 @@ class SLinkedList:
             new_node.next = current.next
             current.next = new_node
 
-    def pushInsert(self, new_node):
-        new_node.next = self.head
-        self.head = new_node
+
+    

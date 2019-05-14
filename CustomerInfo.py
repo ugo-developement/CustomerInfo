@@ -58,9 +58,8 @@ class Customer_Info:
 
     # This will ALWAYS increase the user's years with ugo by 1. 
     # Change this mechanic later ... Maybe
-    def update(self, status, ot, bs, ps):
-        self.info.status = status
-        self.info.yrs = self.info.yrs + 1
+    def update(self, add_yr, ot, bs, ps):
+        self.info.yrs = self.info.yrs + add_yr
         self.info.ordTotal = self.info.ordTotal + ot
         self.info.baskSum = self.info.baskSum + bs
         self.info.priceSum = self.info.priceSum + ps
@@ -92,64 +91,6 @@ class New_Info:
 ######### Customer_Info Functions #########
 #                                         #
 ###########################################
-
-#
-# Function: Swap duplicate with active account
-# Return: Customer_Info object
-# Usage: Whenever an active account becomes
-# less active than one of their duplicates
-#
-
-def duplicate_make_active(act, dup): #(account to be made dup, dup to be made active account)
-    act_new = dup
-    act_new.set_status('Active')
-
-    for x in act.accounts:
-        x.set_status('Duplicate')
-    
-    # Theory is if active account and dups all have
-    # unique account lists containing all other 
-    # accounts then no need to shuffle around
-
-    return act_new
-
-
-#
-# Function: Check if duplicate is
-# already in parents accounts list
-# Return: True if it exists, False 
-# if it needs to be added
-# is already accounted for
-# Usage: Check to see if user name but
-# not user email match an existing user
-# and if so, mark as duplicate and create
-#
-
-def duplicate_check_exists(u_ll, name, email): #(user linked list, name, email)
-    head = u_ll.head
-    active_acnt = None
-
-    while head is not None:
-        if head.data.name is name.lower() and head.data.email is not email.lower():
-            if email in head.data.accounts:
-                return True
-            return False
-        head = head.next
-    return 'Failed to find parent'
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Info for Ugo as a whole
