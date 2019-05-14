@@ -9,6 +9,7 @@ import xlwt;
 from CustomerInfo import *
 from LinkedListFunctions import *
 from NodeDef import *
+from xlwt import XFStyle
 
 from defusedxml.common import EntitiesForbidden;
 from xlrd import open_workbook;
@@ -160,3 +161,31 @@ def write_user_info(file, userll, index):
         file.write(index, 6, us_head.data.info.role)
         us_head = us_head.next
         index = index + 1
+
+
+#
+# Function: Write user linked list to sheet
+# for debugging purposes
+# Usage: Debugging
+#
+
+def debug_write_LL(sheet, llist):
+    format_dates = XFStyle()
+    format_dates.num_format_str = 'M/D/YY'
+    head = llist.head
+    row = 0
+    while head is not None:
+        sheet.write(row, 0, head.data.name)
+        sheet.write(row, 1, head.data.email)
+        sheet.write(row, 2, head.data.info.created, format_dates)
+        sheet.write(row, 3, 'Dups: {}'.format(len(head.data.accounts)))
+
+        if len(head.data.accounts) > 0:
+            i = 0
+            for x in head.data.accounts:
+                sheet.col(4 + i).width = 256 * 30
+                sheet.write(row, 4 + i, head.data.accounts[i])
+                i += 1
+        print(head.data.name)
+        head = head.next
+        row += 1

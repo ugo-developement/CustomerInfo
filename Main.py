@@ -22,7 +22,7 @@ defusedxml.defuse_stdlib()
 # May 11, 2019
 # Version: 0.2.0
 
-def main():
+def rmain():
     # file path, surrounded in r"" for 
     # the sake of spaces
     path = r"{}".format(sys.argv[1])
@@ -138,7 +138,7 @@ def main():
     # save workbook to current directory
     new_wb.save('results.xls')
 
-def refined_main():
+def main():
     users_LL = SLinkedList()
     path = r"{}".format(sys.argv[1])
     file = secure_open_workbook(path)
@@ -146,6 +146,10 @@ def refined_main():
     new_wb = Workbook()
     ugo_results = new_wb.add_sheet('Ugo Results')
     user_results = new_wb.add_sheet('User Results')
+
+    # Styling
+    user_results.col(0).width = 256 * 30
+    user_results.col(1).width = 256 * 30
 
     prev_year = []
     curr_year = []
@@ -164,32 +168,31 @@ def refined_main():
                 email = sheet.cell_value(i, 1).lower()
                 created = sheet.cell_value(i, 3)
                 head = users_LL.head
-                done = False # Simple bool to make breaking then continuing easier
+                done = False
 
                 if email not in u_emails:
                     if name not in u_names:
                         u_names.append(name)
-                        u_emails.append(email)
-
                         new_user = Customer_Info(name, email)
                         new_info = New_Info('Active', created)
                         new_user.set_info(new_info)
-
-                        users_LL.alphaInsert(new_user)
-
-
-                while head is not None:
-                    if head.data.name is name and head.data.email is not email:
-                        if email not in head.data.accounts:
-                            head.data.accounts.append(email)
-                        break
-                    head = head.next
-
-                
-
-            
+                        users_LL.alphaInsert(Node(new_user))
+                    else:
+                        head = users_LL.head
+                        while head is not None:
+                            if head.data.name == name and head.data.email != email:
+                                if email not in head.data.accounts:
+                                    head.data.accounts.append(email)
+                                    break
+                            head = head.next
+                u_emails.append(email)
+                i += 1
             # End while
-                
+
+            debug_write_LL(user_results, users_LL)
+            new_wb.save('RandC_Results.xls')
+            print("Success!")
+            break
                 
 
 
@@ -200,5 +203,5 @@ def refined_main():
 
 
 # Run Main 
-if __name__ == "__refined_main__":
-    refined_main()
+if __name__ == "__main__":
+    main()
